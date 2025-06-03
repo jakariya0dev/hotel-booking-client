@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { RenderStars } from "../../utils/RatingHelper";
+import { RenderStars } from "./../utils/RatingHelper";
 
 // Dummy data
 const featuredRooms = [
@@ -65,11 +65,18 @@ const featuredRooms = [
   },
 ];
 
-const FeaturedRooms = () => {
+export default function AllRooms() {
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">Featured Rooms</h2>
+        <div>
+          <select>
+            <option value="1">1</option>
+          </select>
+        </div>
+        <h2 className="text-3xl font-bold text-center mb-10">
+          Rooms in Our Hotel
+        </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredRooms.map((room) => (
@@ -125,6 +132,4 @@ const FeaturedRooms = () => {
       </div>
     </section>
   );
-};
-
-export default FeaturedRooms;
+}

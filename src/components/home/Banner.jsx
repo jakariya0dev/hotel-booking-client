@@ -46,12 +46,14 @@ const Banner = () => {
           <div key={index}>
             <div
               style={{ backgroundImage: `url(${slide.image})` }}
-              className={`${slide.bg}`}
+              className="bg-cover bg-center"
             >
-              <div className="bg-[#00000090] text-white h-[400px] flex flex-col justify-center items-start px-10">
+              <div className="bg-[#00000095] text-white h-[400px] flex flex-col justify-center items-center px-10">
                 <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
-                <p className="text-lg mb-6 max-w-md">{slide.description}</p>
-                <Link to="/rooms" className="btn btn-accent text-white">
+                <p className="text-lg mb-6 max-w-lg text-center">
+                  {slide.description}
+                </p>
+                <Link to="/rooms" className="btn">
                   {slide.button}
                 </Link>
               </div>
