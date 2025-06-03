@@ -10,8 +10,8 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-gray-900 text-white p-10">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* About */}
         <div>
           <h2 className="text-xl font-bold mb-4">Horizon Hotel</h2>

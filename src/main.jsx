@@ -1,10 +1,11 @@
+import "leaflet/dist/leaflet.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App.jsx";
 import "./index.css";
-import "leaflet/dist/leaflet.css";
 import Home from "./pages/Home.jsx";
+import RoomDetails from "./pages/RoomDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-    ]
+      {
+        path: "room/:id",
+        element: <RoomDetails />,
+      },
+    ],
   },
 ]);
 
