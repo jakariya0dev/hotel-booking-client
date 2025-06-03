@@ -1,9 +1,13 @@
-import Banner from "./components/home/Banner";
+import { Outlet } from "react-router";
+import Footer from "./components/common/Footer";
+import Navbar from "./components/common/Navbar";
 
 function App() {
   return (
     <>
-      <Banner />
+      <Navbar />
+      <Outlet />
+      <Footer />
     </>
   );
 }
