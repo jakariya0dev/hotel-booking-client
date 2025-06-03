@@ -1,16 +1,16 @@
-import { Link } from "react-router";
 import {
+  FaEnvelope,
   FaFacebookF,
   FaInstagram,
-  FaTwitter,
-  FaPhoneAlt,
   FaMapMarkerAlt,
-  FaEnvelope,
+  FaPhoneAlt,
+  FaTwitter,
 } from "react-icons/fa";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10 mt-10">
+    <footer className="bg-gray-900 text-white py-10">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* About */}
         <div>
