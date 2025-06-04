@@ -8,6 +8,7 @@ import AllRooms from "./pages/AllRooms.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
+import MyBookings from "./pages/MyBookings.jsx";
 import RoomDetails from "./pages/RoomDetails.jsx";
 import Signup from "./pages/Signup.jsx";
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         element: <RoomDetails />,
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_BASE_URL}/room/${params.id}`),
+      },
+      {
+        path: "/my-bookings",
+        element: <MyBookings />,
       },
       {
         path: "/login",

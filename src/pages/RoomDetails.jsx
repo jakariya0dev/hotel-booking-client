@@ -26,9 +26,10 @@ const RoomDetails = () => {
   const handleBookingConfirm = () => {
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/book-room`, {
-        email: user.email,
-        room: roomDetails._id,
-        date: selectedDate,
+        userEmail: user.email,
+        roomName: roomDetails.name,
+        roomId: roomDetails._id,
+        bookingDate: selectedDate,
       })
       .then((res) => {
         console.log(res);
