@@ -1,71 +1,22 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { RenderStars } from "../../utils/RatingHelper";
 
 // Dummy data
-const featuredRooms = [
-  {
-    id: 1,
-    name: "Deluxe King Room",
-    description:
-      "Spacious room with king-size bed, city view, and premium amenities.",
-    image: "https://i.ibb.co/RpQ726Db/banner3.jpg",
-    features: ["Free WiFi", "Air Conditioning", "Breakfast Included"],
-    rating: 4.5,
-    price: 120,
-  },
-  {
-    id: 2,
-    name: "Ocean View Suite",
-    description:
-      "Enjoy breathtaking sea views with a private balcony and large living area.",
-    image: "https://i.ibb.co/mrQb6sZ2/banner2.jpg",
-    features: ["Ocean View", "Private Balcony", "Mini Bar"],
-    rating: 5,
-    price: 180,
-  },
-  {
-    id: 3,
-    name: "Executive Room",
-    description:
-      "Ideal for business travelers, comes with a work desk and coffee machine.",
-    image: "https://i.ibb.co/3yjKLDpM/banner1.jpg",
-    features: ["Desk", "Coffee Maker", "High-Speed WiFi"],
-    rating: 4,
-    price: 100,
-  },
-  {
-    id: 4,
-    name: "Honeymoon Suite",
-    description:
-      "Perfect for couples with luxurious ambiance and romantic decor.",
-    image: "https://i.ibb.co/mrQb6sZ2/banner3.jpg",
-    features: ["Jacuzzi", "King Bed", "Mood Lighting"],
-    rating: 4.8,
-    price: 200,
-  },
-  {
-    id: 5,
-    name: "Standard Double Room",
-    description:
-      "Affordable comfort with all essential amenities for a restful stay.",
-    image: "https://i.ibb.co/mrQb6sZ2/banner2.jpg",
-    features: ["TV", "Free WiFi", "Air Conditioning"],
-    rating: 3.5,
-    price: 75,
-  },
-  {
-    id: 6,
-    name: "Family Room",
-    description:
-      "Spacious enough for families, includes extra beds and kid-friendly perks.",
-    image: "https://i.ibb.co/3yjKLDpM/banner1.jpg",
-    features: ["Extra Beds", "Play Area", "Complimentary Snacks"],
-    rating: 4.2,
-    price: 140,
-  },
-];
 
 const FeaturedRooms = () => {
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_BASE_URL}/rooms`)
+      .then((res) => res.json())
+      .then((data) => setRooms(data));
+  }, []);
+
+  const featuredRooms = rooms.slice(0, 6);
+
+  console.log(featuredRooms);
+
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
@@ -113,7 +64,7 @@ const FeaturedRooms = () => {
 
                 {/* Book Now Button */}
                 <Link
-                  to={`/rooms/${room.id}`}
+                  to={`/room/${room._id}`}
                   className="inline-block bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition"
                 >
                   Book Now

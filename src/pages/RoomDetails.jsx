@@ -1,42 +1,51 @@
-import { useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
-import { useParams } from "react-router";
+import axios from "axios";
+import { use, useState } from "react";
+import { useLoaderData } from "react-router";
+import { toast } from "react-toastify";
+import { AuthContext } from "../providers/AuthProvider";
 import { RenderStars } from "../utils/RatingHelper";
 import Modal from "./../components/common/Modal";
 
-const dummyRoomData = [
-  {
-    id: 1,
-    name: "Deluxe King Room",
-    description:
-      "Spacious room with king-size bed, city view, and premium amenities.",
-    image: "https://i.ibb.co/3yjKLDpM/banner1.jpg",
-    features: ["Free WiFi", "Air Conditioning", "Breakfast Included"],
-    rating: 4.5,
-    price: 120,
-    reviews: [
-      {
-        user: "Alice",
-        comment: "Loved the city view and comfort!",
-        rating: 5,
-      },
-      {
-        user: "John",
-        comment: "Service was great. Worth the price.",
-        rating: 4,
-      },
-    ],
-  },
-];
-
 const RoomDetails = () => {
-  const { id } = useParams();
-  const room = dummyRoomData.find((room) => room.id === parseInt(id));
+  const roomDetails = useLoaderData();
+  const { user } = use(AuthContext);
+
+  // console.log(roomDetails);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
 
-  if (!room) {
+  const handleBookNow = () => {
+    if (!selectedDate) {
+      toast.error("Please select a date");
+      return;
+    }
+    setIsModalOpen(true);
+  };
+
+  const handleBookingConfirm = () => {
+    axios
+      .post(`${import.meta.env.VITE_BASE_URL}/book-room`, {
+        email: user.email,
+        room: roomDetails._id,
+        date: selectedDate,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.success) {
+          toast.success(res.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response.data);
+
+        toast.error("Something went wrong!");
+      });
+    setIsModalOpen(false);
+  };
+
+  if (!roomDetails) {
     return <div className="text-center text-xl py-20">Room not found!</div>;
   }
 
@@ -44,28 +53,28 @@ const RoomDetails = () => {
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         <img
-          src={room.image}
-          alt={room.name}
+          src={roomDetails.image}
+          alt={roomDetails.name}
           className="w-full rounded-lg shadow"
         />
 
         <div>
-          <h1 className="text-3xl font-bold mb-2">{room.name}</h1>
-          <p className="text-gray-400 mb-3">{room.description}</p>
+          <h1 className="text-3xl font-bold mb-2">{roomDetails.name}</h1>
+          <p className="text-gray-400 mb-3">{roomDetails.description}</p>
 
           <div className="text-yellow-400 flex items-center mb-2">
-            {RenderStars(room.rating)}
-            <span className="ml-2 text-gray-400">{room.rating}/5</span>
+            {RenderStars(roomDetails.rating)}
+            <span className="ml-2 text-gray-400">{roomDetails.rating}/5</span>
           </div>
 
           <ul className="list-disc list-inside text-gray-400 mb-4">
-            {room.features.map((f, i) => (
+            {/* {roomDetails.features.map((f, i) => (
               <li key={i}>{f}</li>
-            ))}
+            ))} */}
           </ul>
 
           <p className="text-lg font-semibold text-blue-600 mb-2">
-            Price: ${room.price}{" "}
+            Price: ${roomDetails.price}{" "}
             <span className="text-sm text-gray-500">/night</span>
           </p>
 
@@ -80,7 +89,7 @@ const RoomDetails = () => {
           </label>
 
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleBookNow}
             className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition"
           >
             Book Now
@@ -89,15 +98,15 @@ const RoomDetails = () => {
       </div>
 
       {/* Reviews Section */}
-      <div className="mt-10">
+      {/* <div className="mt-10">
         <h2 className="text-2xl font-semibold mb-4">Customer Reviews</h2>
-        {room.reviews.length === 0 ? (
+        {roomDetails.reviews.length === 0 ? (
           <p className="text-gray-500 italic">
             No reviews yet. Be the first to leave one!
           </p>
         ) : (
           <div className="space-y-4">
-            {room.reviews.map((review, i) => (
+            {roomDetails.reviews.map((review, i) => (
               <div key={i} className="bg-base-100 shadow p-4 rounded-lg border">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold flex items-center gap-2">
@@ -106,7 +115,9 @@ const RoomDetails = () => {
                   </span>
                   <div className="text-yellow-400 flex">
                     {RenderStars(review.rating)}
-                    <span className="ml-2 text-gray-400">{room.rating}/5</span>
+                    <span className="ml-2 text-gray-400">
+                      {roomDetails.rating}/5
+                    </span>
                   </div>
                 </div>
                 <p className="text-gray-400 mt-2">{review.comment}</p>
@@ -114,7 +125,7 @@ const RoomDetails = () => {
             ))}
           </div>
         )}
-      </div>
+      </div> */}
 
       {/* Booking Modal */}
       {isModalOpen && (
@@ -122,23 +133,21 @@ const RoomDetails = () => {
           <div className="p-4">
             <h2 className="text-xl font-bold mb-2">Booking Summary</h2>
             <p>
-              <strong>Room:</strong> {room.name}
+              <strong>Room:</strong> {roomDetails.name}
             </p>
             <p>
-              <strong>Price:</strong> ${room.price}/night
+              <strong>Price:</strong> ${roomDetails.price}/night
             </p>
             <p>
               <strong>Date:</strong> {selectedDate || "Not selected"}
             </p>
-            <p className="text-sm text-gray-500 mt-2">{room.description}</p>
+            <p className="text-sm text-gray-500 mt-2">
+              {roomDetails.description}
+            </p>
 
             <button
               className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              onClick={() => {
-                // Handle booking logic here
-                alert("Booking Confirmed!");
-                setIsModalOpen(false);
-              }}
+              onClick={handleBookingConfirm}
             >
               Confirm Booking
             </button>

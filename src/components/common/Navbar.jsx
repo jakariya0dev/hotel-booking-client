@@ -1,4 +1,27 @@
+import { getAuth, signOut } from "firebase/auth";
+import { use } from "react";
+import { Link } from "react-router";
+import { toast } from "react-toastify";
+import { Tooltip } from "react-tooltip";
+import { AuthContext } from "../../providers/AuthProvider";
+import { app } from "./../../../firebase.config.js";
+import LoaderDotted from "./LoaderDotted";
+
 export default function Navbar() {
+  const { user, setUser, isLoading } = use(AuthContext);
+
+  const handleLogout = () => {
+    const auth = getAuth(app);
+    signOut(auth)
+      .then(() => {
+        toast.success("Logout successful");
+        setUser(null);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -69,7 +92,34 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {isLoading ? (
+          <LoaderDotted />
+        ) : user ? (
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  src={user.photoURL}
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content={user.displayName}
+                />
+                <Tooltip id="my-tooltip" />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link to="/login" className="btn btn-ghost">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

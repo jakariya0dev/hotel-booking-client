@@ -64,17 +64,19 @@ const Feature = () => {
       </h2>
       <Slider {...settings}>
         {features.map((feature) => (
-          <div className="px-3 my-4">
+          <div className="px-3 my-4 rounded-xl">
             <div
               style={{
                 height: "200px",
 
                 backgroundImage: `url(${feature.image})`,
               }}
-              className="border bg-center bg-cover bg-no-repeat border-base-content/10 bg-base-300 rounded-xl shadow-xl h-full flex flex-col items-center text-center"
+              className="bg-center bg-cover bg-no-repeat shadow-xl h-full"
             >
-              <div className="bg-[rgba(0,0,0,0.5)] w-full h-full flex justify-center items-center">
-                <h3 className="text-2xl font-semibold">{feature.name}</h3>
+              <div className="bg-[rgba(0,0,0,0.7)] w-full h-full flex justify-center items-center">
+                <h3 className="text-2xl text-white font-semibold">
+                  {feature.name}
+                </h3>
               </div>
             </div>
           </div>
