@@ -58,31 +58,32 @@ const Feature = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 my-12">
-      <h2 className="text-2xl font-bold text-center mb-5">
-        Discover your new favourite stay
-      </h2>
-      <Slider {...settings}>
-        {features.map((feature) => (
-          <div className="px-3 my-4 rounded-xl">
-            <div
-              style={{
-                height: "200px",
-
-                backgroundImage: `url(${feature.image})`,
-              }}
-              className="bg-center bg-cover bg-no-repeat shadow-xl h-full"
-            >
-              <div className="bg-[rgba(0,0,0,0.7)] w-full h-full flex justify-center items-center">
-                <h3 className="text-2xl text-white font-semibold">
-                  {feature.name}
-                </h3>
+    <section className="bg-white">
+      <div className="max-w-7xl mx-auto py-16">
+        <h2 className=" text-gray-800 text-2xl font-bold text-center mb-5">
+          Discover your new favourite stay
+        </h2>
+        <Slider {...settings}>
+          {features.map((feature) => (
+            <div className="px-3 my-4 rounded-xl">
+              <div
+                style={{
+                  height: "200px",
+                  backgroundImage: `url(${feature.image})`,
+                }}
+                className="bg-center bg-cover bg-no-repeat shadow-xl h-full"
+              >
+                <div className="bg-[rgba(0,0,0,0.7)] w-full h-full flex justify-center items-center">
+                  <h3 className="text-2xl text-white font-semibold">
+                    {feature.name}
+                  </h3>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+          ))}
+        </Slider>
+      </div>
+    </section>
   );
 };
 

@@ -25,25 +25,50 @@ export default function Navbar() {
   const links = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <Link
+          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
+          to="/"
+        >
+          Home
+        </Link>
       </li>
       <li>
-        <Link to="/rooms">Rooms</Link>
+        <Link
+          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
+          to="/rooms"
+        >
+          Rooms
+        </Link>
       </li>
       <li>
-        <Link to="/my-bookings">My Bookings</Link>
+        <Link
+          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
+          to="/my-bookings"
+        >
+          My Bookings
+        </Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link
+          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
+          to="/about"
+        >
+          About
+        </Link>
       </li>
       <li>
-        <Link to="/contact">Contact</Link>
+        <Link
+          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
+          to="/contact"
+        >
+          Contact
+        </Link>
       </li>
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-white text-gray-600 shadow-sm px-4">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -70,10 +95,15 @@ export default function Navbar() {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link
+          to="/"
+          className="text-xl text-amber-500 font-bold transition-all"
+        >
+          Sunset<span className="text-gray-600">Bay</span>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
+        <ul className="menu menu-horizontal px-1 font-semibold">{links}</ul>
       </div>
       <div className="navbar-end">
         {isLoading ? (
@@ -92,15 +122,23 @@ export default function Navbar() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-2 p-2 shadow-lg bg-gray-200 rounded-box w-52"
             >
               <li>
-                <button onClick={handleLogout}>Logout</button>
+                <button
+                  className="btn btn-ghost text-lg"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               </li>
             </ul>
           </div>
         ) : (
-          <Link to="/login" className="btn btn-ghost">
+          <Link
+            to="/login"
+            className="btn bg-black text-white hover:shadow-lg transition-all"
+          >
             Login
           </Link>
         )}

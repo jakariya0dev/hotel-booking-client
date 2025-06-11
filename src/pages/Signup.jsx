@@ -82,8 +82,8 @@ const Signup = () => {
         <title>HobbyHub | Signup</title>
         <meta name="description" content="Sign up to HobbyHub" />
       </Helmet>
-      <section className="w-full min-h-screen p-4">
-        <div className="max-w-md mx-auto p-6 mt-12 shadow-xl rounded-xl bg-base-300">
+      <section className="w-full min-h-screen p-4 bg-white text-gray-800">
+        <div className="max-w-md mx-auto p-6 mt-12 shadow-2xl rounded-xl">
           <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -94,7 +94,7 @@ const Signup = () => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="border border-gray-300 p-2 rounded w-full"
               />
             </div>
             <div>
@@ -105,7 +105,7 @@ const Signup = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="border border-gray-300 p-2 rounded w-full"
               />
             </div>
             <div>
@@ -115,7 +115,7 @@ const Signup = () => {
                 name="photoURL"
                 value={formData.photoURL}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="border border-gray-300 p-2 rounded w-full"
               />
             </div>
             <div>
@@ -126,7 +126,7 @@ const Signup = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="border border-gray-300 p-2 rounded w-full"
               />
             </div>
 

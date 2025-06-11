@@ -14,11 +14,12 @@ const Footer = () => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* About */}
         <div>
-          <h2 className="text-xl font-bold mb-4">Horizon Hotel</h2>
+          <h2 className="text-xl font-bold mb-4 text-amber-500">
+            Sunset<span className="text-white">Bay</span>
+          </h2>
           <p className="text-sm">
-            Horizon Hotel is your ideal destination for a luxurious stay,
-            memorable experiences, and top-notch service in the heart of the
-            city.
+            SunsetBay is your ideal destination for a luxurious stay, memorable
+            experiences, and top-notch service in the heart of the city.
           </p>
         </div>
 
@@ -54,13 +55,13 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
           <ul className="space-y-3 text-sm">
             <li className="flex items-center gap-2">
-              <FaMapMarkerAlt /> 123 Beachside Avenue, Paradise City
+              <FaMapMarkerAlt /> Labony Point, Cox's Bazar, Bangladesh
             </li>
             <li className="flex items-center gap-2">
-              <FaPhoneAlt /> +1 (800) 123-4567
+              <FaPhoneAlt /> +88 (01) 123-4567
             </li>
             <li className="flex items-center gap-2">
-              <FaEnvelope /> info@horizonhotel.com
+              <FaEnvelope /> info@sunsetbay.com
             </li>
           </ul>
         </div>
@@ -99,7 +100,7 @@ const Footer = () => {
 
       {/* Bottom */}
       <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-400">
-        &copy; {new Date().getFullYear()} Horizon Hotel. All rights reserved.
+        &copy; {new Date().getFullYear()} SunsetBay. All rights reserved.
       </div>
     </footer>
   );

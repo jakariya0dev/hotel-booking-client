@@ -76,10 +76,10 @@ const Login = () => {
         <title>HorizonHotel | Login</title>
         <meta name="description" content="Login to HobbyHub" />
       </Helmet>
-      <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
-        <div className="w-full max-w-md bg-base-300 shadow-xl rounded-xl p-8">
+      <section className="min-h-screen flex items-center justify-center bg-white text-gray-800 px-4">
+        <div className="w-full max-w-md shadow-2xl rounded-xl p-8">
           <h2 className="text-2xl font-bold text-center mb-6">
-            Login to HorizonHotel
+            Login to SunsetBay
           </h2>
 
           <form onSubmit={handleLogin} className="space-y-4">
@@ -90,7 +90,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="you@example.com"
-                className="input input-bordered w-full"
+                className="border p-2 border-gray-300 rounded w-full"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -104,7 +104,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="••••••••"
-                className="input input-bordered w-full"
+                className="border p-2 border-gray-300 rounded w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -133,7 +133,7 @@ const Login = () => {
             </Link>
           </p>
         </div>
-      </div>
+      </section>
     </>
   );
 };

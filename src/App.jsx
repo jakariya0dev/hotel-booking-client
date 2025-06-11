@@ -7,10 +7,12 @@ import AuthProvider from "./providers/AuthProvider";
 function App() {
   return (
     <AuthProvider>
-      <Navbar />
-      <Outlet />
-      <Footer />
-      <ToastContainer />
+      <div className="min-h-screen bg-white text-gray-800">
+        <Navbar />
+        <Outlet />
+        <Footer />
+        <ToastContainer />
+      </div>
     </AuthProvider>
   );
 }

@@ -42,7 +42,7 @@ const Contact = () => {
         </div>
 
         {/* Contact Form Section */}
-        <div className="bg-white rounded-lg shadow-lg p-6 md:p-10">
+        <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 md:p-10">
           <h2 className="text-3xl font-bold mb-6">Contact Us</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -50,6 +50,7 @@ const Contact = () => {
                 Name
               </label>
               <input
+                placeholder="Your Full Name"
                 type="text"
                 id="name"
                 name="name"
@@ -65,6 +66,7 @@ const Contact = () => {
                 Email
               </label>
               <input
+                placeholder="abc@mail.com"
                 type="email"
                 id="email"
                 name="email"
@@ -80,6 +82,7 @@ const Contact = () => {
                 Message
               </label>
               <textarea
+                placeholder="Type your message here..."
                 id="message"
                 name="message"
                 value={formData.message}
