@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: "room/:id",
         element: <RoomDetails />,
-        loader: ({ params }) =>
+        loader: async ({ params }) =>
           fetch(`${import.meta.env.VITE_BASE_URL}/room/${params.id}`),
       },
       {

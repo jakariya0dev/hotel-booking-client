@@ -12,8 +12,9 @@ export default function MyBookings() {
   const { user } = use(AuthContext);
   const [bookingData, setBookingData] = useState(null);
   const [isMoadalOpen, setIsModalOpen] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [review, setReview] = useState(null);
+  // const [rating, setRating] = useState(0);
+  // const [comment, setComment] = useState("");
 
   useEffect(() => {
     if (user?.email) {
@@ -21,6 +22,7 @@ export default function MyBookings() {
         .get(`${import.meta.env.VITE_BASE_URL}/bookings/${user.email}`)
         .then((res) => {
           setBookingData(res.data);
+          console.log(res.data);
         })
         .catch((error) => {
           console.error("Error fetching bookings:", error);
@@ -64,24 +66,30 @@ export default function MyBookings() {
     });
   };
 
+  const handleOpenReviewModal = (roomId, bookingId) => {
+    setIsModalOpen(true);
+    setReview({
+      roomId,
+      bookingId,
+      userName: user.displayName,
+      userEmail: user.email,
+      date: new Date(),
+    });
+  };
+
   const handleSubmitReview = (e) => {
     e.preventDefault();
-    if (rating === 0 || comment.trim() === "") {
+    if (review.rating === 0 || review.comment.trim() === "") {
       toast.error("Please fill in both fields.");
       return;
     }
     axios
-      .post(`${import.meta.env.VITE_BASE_URL}/review`, {
-        userEmail: user.email,
-        rating,
-        comment,
-      })
+      .post(`${import.meta.env.VITE_BASE_URL}/review`, review)
       .then((res) => {
         if (res.data.success) {
           toast.success("Review submitted successfully!");
           setIsModalOpen(false);
-          setRating(0);
-          setComment("");
+          setReview(null);
         } else {
           toast.error("Failed to submit review.");
         }
@@ -123,7 +131,9 @@ export default function MyBookings() {
             <thead>
               <tr>
                 <th>#</th>
+                <th>Image</th>
                 <th>Room</th>
+                <th>Price</th>
                 <th>Booking Date</th>
                 <th>Action</th>
               </tr>
@@ -132,19 +142,38 @@ export default function MyBookings() {
               {bookingData.map((booking, index) => (
                 <tr key={booking._id}>
                   <th>{index + 1}</th>
-                  <td>{booking.roomName}</td>
+                  <td>
+                    <img
+                      src={booking.roomDetails.image}
+                      className="w-20"
+                      alt={booking.roomDetails.name}
+                    />
+                  </td>
+                  <td>{booking.roomDetails.name}</td>
+                  <td>${booking.roomDetails.price}</td>
                   <td>{booking.bookingDate}</td>
                   <td className="flex gap-2">
-                    <button
-                      className="btn btn-sm btn-primary"
-                      onClick={() => setIsModalOpen(true)}
-                    >
-                      Give Review
-                    </button>
+                    {booking.reviewed ? (
+                      <button disabled className="btn btn-sm btn-secondary">
+                        Review Submitted
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          handleOpenReviewModal(
+                            booking.roomDetails._id,
+                            booking._id
+                          )
+                        }
+                        className="btn btn-sm btn-secondary"
+                      >
+                        Leave a Review
+                      </button>
+                    )}
 
                     <button
                       onClick={() => handleCancelBooking(booking._id)}
-                      className="btn btn-sm btn-primary"
+                      className="btn btn-sm btn-error"
                     >
                       Cancel Booking
                     </button>
@@ -167,8 +196,11 @@ export default function MyBookings() {
               <div>
                 <label className="block mb-1">Rating</label>
                 <select
-                  value={rating}
-                  onChange={(e) => setRating(parseInt(e.target.value))}
+                  value={review.rating || 0}
+                  required
+                  onChange={(e) =>
+                    setReview({ ...review, rating: parseInt(e.target.value) })
+                  }
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value={0}>Select a rating</option>
@@ -184,8 +216,11 @@ export default function MyBookings() {
               <div>
                 <label className="block mb-1">Comment</label>
                 <textarea
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
+                  value={review.comment || ""}
+                  onChange={(e) =>
+                    setReview({ ...review, comment: e.target.value })
+                  }
+                  required
                   rows={4}
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                   placeholder="Write your thoughts..."

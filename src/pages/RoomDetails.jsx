@@ -1,5 +1,6 @@
 import axios from "axios";
 import { use, useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
 import { useLoaderData } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../providers/AuthProvider";
@@ -7,10 +8,10 @@ import { RenderStars } from "../utils/RatingHelper";
 import Modal from "./../components/common/Modal";
 
 const RoomDetails = () => {
-  const roomDetails = useLoaderData();
+  const roomDetails  = useLoaderData();
   const { user } = use(AuthContext);
 
-  // console.log(roomDetails);
+  console.log(roomDetails);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
@@ -29,6 +30,7 @@ const RoomDetails = () => {
         userEmail: user.email,
         roomId: roomDetails._id,
         bookingDate: selectedDate,
+        reviewed: false,
       })
       .then((res) => {
         console.log(res);
@@ -98,7 +100,7 @@ const RoomDetails = () => {
       </div>
 
       {/* Reviews Section */}
-      {/* <div className="mt-10">
+      <div className="mt-10">
         <h2 className="text-2xl font-semibold mb-4">Customer Reviews</h2>
         {roomDetails.reviews.length === 0 ? (
           <p className="text-gray-500 italic">
@@ -111,7 +113,7 @@ const RoomDetails = () => {
                 <div className="flex items-center justify-between">
                   <span className="font-semibold flex items-center gap-2">
                     <FaUserCircle size={20} />
-                    {review.user}
+                    {review.userName || "Anonymous"}
                   </span>
                   <div className="text-yellow-400 flex">
                     {RenderStars(review.rating)}
@@ -125,7 +127,7 @@ const RoomDetails = () => {
             ))}
           </div>
         )}
-      </div> */}
+      </div>
 
       {/* Booking Modal */}
       {isModalOpen && (
