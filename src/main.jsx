@@ -11,6 +11,7 @@ import Login from "./pages/Login.jsx";
 import MyBookings from "./pages/MyBookings.jsx";
 import RoomDetails from "./pages/RoomDetails.jsx";
 import Signup from "./pages/Signup.jsx";
+import PrivateRoute from "./providers/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-bookings",
-        element: <MyBookings />,
+        element: (
+          <PrivateRoute>
+            <MyBookings />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",

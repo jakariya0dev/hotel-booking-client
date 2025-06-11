@@ -89,6 +89,14 @@ export default function MyBookings() {
         if (res.data.success) {
           toast.success("Review submitted successfully!");
           setIsModalOpen(false);
+
+          const updatedBookings = bookingData.map((booking) => {
+            if (booking._id === review.bookingId) {
+              return { ...booking, reviewed: true };
+            }
+            return booking;
+          });
+          setBookingData(updatedBookings);
           setReview(null);
         } else {
           toast.error("Failed to submit review.");

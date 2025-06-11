@@ -1,4 +1,5 @@
 import axios from "axios";
+import { format } from "date-fns";
 import { use, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useLoaderData } from "react-router";
@@ -8,7 +9,7 @@ import { RenderStars } from "../utils/RatingHelper";
 import Modal from "./../components/common/Modal";
 
 const RoomDetails = () => {
-  const roomDetails  = useLoaderData();
+  const roomDetails = useLoaderData();
   const { user } = use(AuthContext);
 
   console.log(roomDetails);
@@ -21,6 +22,17 @@ const RoomDetails = () => {
       toast.error("Please select a date");
       return;
     }
+
+    if (
+      roomDetails.bookings.some(
+        (booking) => booking.bookingDate === selectedDate
+      )
+    ) {
+      toast.error("This room is not available at the selected date.");
+      setIsModalOpen(false);
+      return;
+    }
+
     setIsModalOpen(true);
   };
 
@@ -54,11 +66,24 @@ const RoomDetails = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-        <img
-          src={roomDetails.image}
-          alt={roomDetails.name}
-          className="w-full rounded-lg shadow"
-        />
+        <div>
+          <img
+            src={roomDetails.image}
+            alt={roomDetails.name}
+            className="w-full rounded-lg shadow"
+          />
+          <div className="mt-4 flex items-center gap-2">
+            <span className="text-gray-500">This Room Not Available at:</span>
+            {roomDetails.bookings.map((booking, index) => (
+              <span
+                key={index}
+                className="text-blue-500 font-semibold border px-4 py-1 rounded-full"
+              >
+                {format(new Date(booking.bookingDate), "dd MMM, yy")}
+              </span>
+            ))}
+          </div>
+        </div>
 
         <div>
           <h1 className="text-3xl font-bold mb-2">{roomDetails.name}</h1>
@@ -70,9 +95,9 @@ const RoomDetails = () => {
           </div>
 
           <ul className="list-disc list-inside text-gray-400 mb-4">
-            {/* {roomDetails.features.map((f, i) => (
+            {roomDetails.features.map((f, i) => (
               <li key={i}>{f}</li>
-            ))} */}
+            ))}
           </ul>
 
           <p className="text-lg font-semibold text-blue-600 mb-2">
