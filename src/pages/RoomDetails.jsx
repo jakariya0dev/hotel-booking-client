@@ -27,7 +27,6 @@ const RoomDetails = () => {
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/book-room`, {
         userEmail: user.email,
-        roomName: roomDetails.name,
         roomId: roomDetails._id,
         bookingDate: selectedDate,
       })

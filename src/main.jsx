@@ -24,6 +24,7 @@ const router = createBrowserRouter([
       {
         path: "/rooms",
         element: <AllRooms />,
+        loader: () => fetch(`${import.meta.env.VITE_BASE_URL}/rooms`),
       },
       {
         path: "room/:id",
