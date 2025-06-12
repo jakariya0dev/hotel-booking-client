@@ -69,6 +69,8 @@ const Signup = () => {
       setUser(userCredential.user);
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 

@@ -20,9 +20,9 @@ export default function ReviewItem({ review }) {
             ))}
         </div>
 
-        <BiSolidQuoteAltLeft className="place-self-start" size={20} />
+        <BiSolidQuoteAltLeft className="place-self-start -mb-4" size={20} />
         <p className="px-8 text-justify">{review.comment}</p>
-        <BiSolidQuoteAltRight className="place-self-end" size={20} />
+        <BiSolidQuoteAltRight className="place-self-end -mt-4" size={20} />
       </div>
     </div>
   );

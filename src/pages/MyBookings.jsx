@@ -10,19 +10,20 @@ import { AuthContext } from "../providers/AuthProvider";
 
 export default function MyBookings() {
   const { user } = use(AuthContext);
-  const [bookingData, setBookingData] = useState(null);
-  const [isMoadalOpen, setIsModalOpen] = useState(false);
+  const [bookingsData, setbookingsData] = useState(null);
+  const [isReviewMoadalOpen, setIsReviewModalOpen] = useState(false);
+  const [isUpdateBookingMoadalOpen, setIsUpdateBookingModalOpen] =
+    useState(false);
   const [review, setReview] = useState(null);
-  // const [rating, setRating] = useState(0);
-  // const [comment, setComment] = useState("");
+  const [selectedBookingData, setSelectedBookingData] = useState(null);
 
   useEffect(() => {
     if (user?.email) {
       axios
         .get(`${import.meta.env.VITE_BASE_URL}/bookings/${user.email}`)
         .then((res) => {
-          setBookingData(res.data);
-          console.log(res.data);
+          setbookingsData(res.data);
+          // console.log(res.data);
         })
         .catch((error) => {
           console.error("Error fetching bookings:", error);
@@ -30,7 +31,67 @@ export default function MyBookings() {
     }
   }, [user?.email]);
 
+  const handleUpdateBooking = (id) => {
+    const booking = bookingsData.find((booking) => booking._id === id);
+    if (booking) {
+      setSelectedBookingData({
+        bookingDate: booking.bookingDate,
+        _id: booking._id,
+      });
+      setIsUpdateBookingModalOpen(true);
+    }
+  };
+
+  const handleSubmitUpdateBooking = (e) => {
+    e.preventDefault();
+    setIsUpdateBookingModalOpen(false);
+
+    // Update booking date
+    axios
+      .patch(
+        `${import.meta.env.VITE_BASE_URL}/bookings/${selectedBookingData._id}`,
+        selectedBookingData._id
+      )
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("Booking date updated successfully!");
+
+          console.log(res.data);
+
+          const updatedBookings = bookingsData.map((booking) => {
+            if (booking._id === selectedBookingData._id) {
+              return {
+                ...booking,
+                bookingDate: selectedBookingData.bookingDate,
+              };
+            }
+            return booking;
+          });
+          setbookingsData(updatedBookings);
+        } else {
+          toast.error("Failed to update booking date.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating booking:", error);
+        toast.error("Failed to update booking.");
+      });
+  };
+
   const handleCancelBooking = (id) => {
+    // Cancel booking only one day before the booking date
+    const booking = bookingsData.find((booking) => booking._id === id);
+    const bookingDate = new Date(booking.bookingDate);
+    const today = new Date();
+    const oneDayBefore = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+    if (bookingDate < oneDayBefore) {
+      toast.error(
+        "You can cancel booking only one day before the booking date."
+      );
+      return;
+    }
+
+    // Booking cancel confirmation dialog
     Swal.fire({
       title: "Are you sure?",
       text: "You want to cancel this booking!",
@@ -41,16 +102,17 @@ export default function MyBookings() {
       confirmButtonText: "Yes, Cancel Booking!",
     }).then((result) => {
       if (result.isConfirmed) {
+        // user select yes to cancel booking
         axios
           .delete(`${import.meta.env.VITE_BASE_URL}/bookings/${id}`, {
             data: { userEmail: user.email },
           })
           .then((res) => res.json())
           .then((data) => {
-            const updatedBookings = bookingData.filter(
+            const updatedBookings = bookingsData.filter(
               (group) => group._id !== id
             );
-            setBookingData(updatedBookings);
+            setbookingsData(updatedBookings);
             console.log(data);
             Swal.fire({
               title: "Booking Cancelled!",
@@ -67,12 +129,13 @@ export default function MyBookings() {
   };
 
   const handleOpenReviewModal = (roomId, bookingId) => {
-    setIsModalOpen(true);
+    setIsReviewModalOpen(true);
     setReview({
       roomId,
       bookingId,
       userName: user.displayName,
       userEmail: user.email,
+      photoUrl: user.photoURL,
       date: new Date(),
     });
   };
@@ -88,15 +151,15 @@ export default function MyBookings() {
       .then((res) => {
         if (res.data.success) {
           toast.success("Review submitted successfully!");
-          setIsModalOpen(false);
+          setIsReviewModalOpen(false);
 
-          const updatedBookings = bookingData.map((booking) => {
+          const updatedBookings = bookingsData.map((booking) => {
             if (booking._id === review.bookingId) {
               return { ...booking, reviewed: true };
             }
             return booking;
           });
-          setBookingData(updatedBookings);
+          setbookingsData(updatedBookings);
           setReview(null);
         } else {
           toast.error("Failed to submit review.");
@@ -108,9 +171,9 @@ export default function MyBookings() {
       });
   };
 
-  if (bookingData === null) return <LoaderBar />;
+  if (bookingsData === null) return <LoaderBar />;
 
-  if (bookingData.length === 0) {
+  if (bookingsData.length === 0) {
     return (
       <section className="min-h-screen flex flex-col items-center justify-center">
         <h1 className="text-3xl font-bold text-center my-5">
@@ -130,16 +193,15 @@ export default function MyBookings() {
         <meta name="description" content="Group Dashboard" />
       </Helmet>
       <section className="max-w-7xl mx-auto pt-10 min-h-screen p-4">
-        <h1 className="text-3xl font-bold text-center my-5">
+        <h1 className="text-3xl font-bold text-center mb-2">
           Booking Dashboard
         </h1>
-        <p className="text-center text-gray-600 mb-5">
-          Here you can manage your bookings and leave reviews for the rooms you've
-          booked.
+        <p className="text-center text-gray-600 mb-8">
+          Manage your bookings and leave reviews for the rooms you've booked.
         </p>
         <div className="overflow-x-auto rounded-box border border-gray-200">
           <table className="table">
-            {/* head */}
+            {/* Table header */}
             <thead className="bg-gray-200 text-gray-800">
               <tr>
                 <th>#</th>
@@ -147,45 +209,54 @@ export default function MyBookings() {
                 <th>Room</th>
                 <th>Price</th>
                 <th>Booking Date</th>
-                <th>Action</th>
+                <th className="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              {bookingData.map((booking, index) => (
+              {bookingsData.map((booking, index) => (
                 <tr key={booking._id} className="border-b border-gray-200">
                   <th>{index + 1}</th>
                   <td>
                     <img
-                      src={booking.roomDetails.image}
+                      src={booking.roomDetails[0].image}
                       className="w-20"
-                      alt={booking.roomDetails.name}
+                      alt={booking.roomDetails[0].name}
                     />
                   </td>
-                  <td>{booking.roomDetails.name}</td>
-                  <td>${booking.roomDetails.price}</td>
+                  <td>{booking.roomDetails[0].name}</td>
+                  <td>${booking.roomDetails[0].price}</td>
                   <td>{booking.bookingDate}</td>
-                  <td className="flex gap-2">
+                  <td className="flex items-center justify-center gap-2">
                     {booking.reviewed ? (
-                      <button disabled className="border border-gray-300 bg-gray-100 text-gray-500 px-3 py-1 rounded">
+                      <button
+                        disabled
+                        className="bg-blue-100 border border-blue-200 text-gray-600 py-1 px-2 rounded"
+                      >
                         Review Submitted
                       </button>
                     ) : (
                       <button
                         onClick={() =>
                           handleOpenReviewModal(
-                            booking.roomDetails._id,
+                            booking.roomDetails[0]._id,
                             booking._id
                           )
                         }
-                        className="btn btn-sm btn-primary text-white"
+                        className="btn btn-sm bg-blue-500 border-0 text-white"
                       >
                         Leave a Review
                       </button>
                     )}
 
                     <button
+                      onClick={() => handleUpdateBooking(booking._id)}
+                      className="btn btn-sm border-0 bg-green-600 text-white"
+                    >
+                      Update Booking
+                    </button>
+                    <button
                       onClick={() => handleCancelBooking(booking._id)}
-                      className="btn btn-sm bg-red-500 text-white"
+                      className="btn btn-sm border-0 bg-red-500 text-white"
                     >
                       Cancel Booking
                     </button>
@@ -196,8 +267,9 @@ export default function MyBookings() {
           </table>
         </div>
 
-        {isMoadalOpen && (
-          <Modal onClose={() => setIsModalOpen(false)}>
+        {/* Modal for Review Form */}
+        {isReviewMoadalOpen && (
+          <Modal onClose={() => setIsReviewModalOpen(false)}>
             <form
               onSubmit={handleSubmitReview}
               className="max-w-md mx-auto p-6 space-y-4"
@@ -244,6 +316,43 @@ export default function MyBookings() {
                 className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
               >
                 Submit Review
+              </button>
+            </form>
+          </Modal>
+        )}
+
+        {/* Modal for Update Booking Form */}
+        {isUpdateBookingMoadalOpen && (
+          <Modal onClose={() => setIsUpdateBookingModalOpen(false)}>
+            <form
+              onSubmit={handleSubmitUpdateBooking}
+              className="max-w-md mx-auto p-6 space-y-4"
+            >
+              <h2 className="text-xl font-semibold">Update Booking Date</h2>
+
+              {/* Date Field */}
+              <div>
+                <label className="block mb-1">Date</label>
+                <input
+                  type="date"
+                  value={selectedBookingData?.bookingDate || ""}
+                  onChange={(e) =>
+                    setSelectedBookingData({
+                      ...selectedBookingData,
+                      bookingDate: e.target.value,
+                    })
+                  }
+                  required
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <button
+                disabled={!selectedBookingData?.bookingDate}
+                type="submit"
+                className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+              >
+                Update Booking
               </button>
             </form>
           </Modal>
