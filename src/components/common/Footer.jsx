@@ -58,7 +58,7 @@ const Footer = () => {
               <FaMapMarkerAlt /> Labony Point, Cox's Bazar, Bangladesh
             </li>
             <li className="flex items-center gap-2">
-              <FaPhoneAlt /> +88 (01) 123-4567
+              <FaPhoneAlt /> +88 (017) 123-4567
             </li>
             <li className="flex items-center gap-2">
               <FaEnvelope /> info@sunsetbay.com

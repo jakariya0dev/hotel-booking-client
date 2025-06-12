@@ -133,10 +133,14 @@ export default function MyBookings() {
         <h1 className="text-3xl font-bold text-center my-5">
           Booking Dashboard
         </h1>
-        <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-          <table className="table bg-base-300">
+        <p className="text-center text-gray-600 mb-5">
+          Here you can manage your bookings and leave reviews for the rooms you've
+          booked.
+        </p>
+        <div className="overflow-x-auto rounded-box border border-gray-200">
+          <table className="table">
             {/* head */}
-            <thead>
+            <thead className="bg-gray-200 text-gray-800">
               <tr>
                 <th>#</th>
                 <th>Image</th>
@@ -148,7 +152,7 @@ export default function MyBookings() {
             </thead>
             <tbody>
               {bookingData.map((booking, index) => (
-                <tr key={booking._id}>
+                <tr key={booking._id} className="border-b border-gray-200">
                   <th>{index + 1}</th>
                   <td>
                     <img
@@ -162,7 +166,7 @@ export default function MyBookings() {
                   <td>{booking.bookingDate}</td>
                   <td className="flex gap-2">
                     {booking.reviewed ? (
-                      <button disabled className="btn btn-sm btn-secondary">
+                      <button disabled className="border border-gray-300 bg-gray-100 text-gray-500 px-3 py-1 rounded">
                         Review Submitted
                       </button>
                     ) : (
@@ -173,7 +177,7 @@ export default function MyBookings() {
                             booking._id
                           )
                         }
-                        className="btn btn-sm btn-secondary"
+                        className="btn btn-sm btn-primary text-white"
                       >
                         Leave a Review
                       </button>
@@ -181,7 +185,7 @@ export default function MyBookings() {
 
                     <button
                       onClick={() => handleCancelBooking(booking._id)}
-                      className="btn btn-sm btn-error"
+                      className="btn btn-sm bg-red-500 text-white"
                     >
                       Cancel Booking
                     </button>

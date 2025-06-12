@@ -60,12 +60,12 @@ const Feature = () => {
   return (
     <section className="bg-white">
       <div className="max-w-7xl mx-auto py-16">
-        <h2 className=" text-gray-800 text-2xl font-bold text-center mb-5">
-          Discover your new favourite stay
+        <h2 className=" text-gray-800 text-3xl font-bold text-center mb-5">
+          What We Offer
         </h2>
         <Slider {...settings}>
           {features.map((feature) => (
-            <div className="px-3 my-4 rounded-xl">
+            <div className="px-3 my-4">
               <div
                 style={{
                   height: "200px",
@@ -73,8 +73,8 @@ const Feature = () => {
                 }}
                 className="bg-center bg-cover bg-no-repeat shadow-xl h-full"
               >
-                <div className="bg-[rgba(0,0,0,0.7)] w-full h-full flex justify-center items-center">
-                  <h3 className="text-2xl text-white font-semibold">
+                <div className="bg-[rgba(0,0,0,0.65)] w-full h-full flex justify-center items-center">
+                  <h3 className="text-2xl text-white font-semibold tracking-wider">
                     {feature.name}
                   </h3>
                 </div>

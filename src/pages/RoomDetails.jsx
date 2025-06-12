@@ -99,12 +99,11 @@ const RoomDetails = () => {
               <span className="text-sm text-gray-400">Select Date:</span>
               <input
                 type="date"
-                className="border px-3 py-2 rounded mt-1 w-full"
+                className="border border-gray-400 px-3 py-2 rounded mt-1 w-full bg-gray-200"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
               />
             </label>
-
             <button
               onClick={handleBookNow}
               className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition"
@@ -114,21 +113,25 @@ const RoomDetails = () => {
           </div>
         </div>
 
-        <div className="mt-4 flex items-center gap-2">
-          <span className="text-gray-500">This Room Not Available at:</span>
-          {roomDetails.bookings.map((booking, index) => (
-            <span
-              key={index}
-              className="text-blue-500 font-semibold border px-4 py-1 rounded-full"
-            >
-              {format(new Date(booking.bookingDate), "dd MMM, yy")}
-            </span>
-          ))}
-        </div>
+        {roomDetails.bookings.length > 0 && (
+          <div className="mt-4 flex items-center gap-2">
+            <span className="text-gray-500">This Room Already Booked for:</span>
+            {roomDetails.bookings.map((booking, index) => (
+              <span
+                key={index}
+                className="text-blue-500 font-semibold border px-4 py-1 rounded-full"
+              >
+                {format(new Date(booking.bookingDate), "dd MMM, yyyy")}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Reviews Section */}
-        <div className="mt-10">
-          <h2 className="text-2xl font-semibold mb-4">Customer Reviews</h2>
+        <div className="mt-10 ">
+          <h2 className="text-2xl font-semibold mb-4">
+            Customer Reviews ({roomDetails.reviews.length})
+          </h2>
           {roomDetails.reviews.length === 0 ? (
             <p className="text-gray-500 italic">
               No reviews yet. Be the first to leave one!
@@ -138,7 +141,7 @@ const RoomDetails = () => {
               {roomDetails.reviews.map((review, i) => (
                 <div
                   key={i}
-                  className="bg-base-100 shadow p-4 rounded-lg border"
+                  className="shadow-md p-4 rounded-lg border border-gray-200"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-semibold flex items-center gap-2">

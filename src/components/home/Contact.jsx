@@ -31,12 +31,10 @@ const Contact = () => {
             scrollWheelZoom={false}
             className="h-full w-full rounded-lg shadow-lg"
           >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
             <Marker position={[23.8103, 90.4125]}>
-              <Popup>Our Hotel Location</Popup>
+              <Popup>SunsetBay</Popup>
             </Marker>
           </MapContainer>
         </div>

@@ -43,7 +43,7 @@ const Banner = () => {
   ];
 
   return (
-    <div className="bg-white w-full h-[400px] rounded-lg overflow-hidden shadow-lg">
+    <div className="bg-white w-full h-[400px] overflow-hidden shadow-lg">
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index}>
