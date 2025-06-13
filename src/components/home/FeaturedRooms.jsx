@@ -1,5 +1,5 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-
 import RoomItemCard from "../common/RoomItemCard";
 
 // Dummy data
@@ -18,15 +18,24 @@ const FeaturedRooms = () => {
   console.log(featuredRooms);
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="px-4 bg-white mb-32">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-gray-800 text-3xl font-bold text-center mb-10">
-          Featured Rooms
+          Explore Our Premium Suites
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredRooms.map((room, index) => (
-            <RoomItemCard key={index} room={room} />
+          {featuredRooms.map((room) => (
+            <motion.div
+              key={room._id}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <RoomItemCard room={room} />
+            </motion.div>
           ))}
         </div>
       </div>

@@ -36,12 +36,9 @@ export default function RoomItemCard({ room }) {
           </ul>
 
           {/* Book Now Button */}
-          <Link
-            to={`/room/${room._id}`}
-            className="inline-block bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition"
-          >
+          <button className="cursor-pointer inline-block bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
             Book Now
-          </Link>
+          </button>
         </div>
       </div>
     </Link>

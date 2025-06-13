@@ -50,7 +50,7 @@ const Testimonial = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 my-12">
+    <div className="max-w-7xl mx-auto px-4 mb-16">
       <h2 className="text-3xl font-bold text-center mb-5">
         What Our Customer Say
       </h2>
