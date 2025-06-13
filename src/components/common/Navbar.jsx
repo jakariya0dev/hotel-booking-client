@@ -1,6 +1,6 @@
 import { getAuth, signOut } from "firebase/auth";
 import { use } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -22,47 +22,38 @@ export default function Navbar() {
       });
   };
 
+  const navlinkStyle = ({ isActive }) => {
+    return isActive
+      ? "hover:text-amber-500 underline text-blue-600 underline-offset-5 transition-all"
+      : "hover:text-amber-500 transition-all";
+  };
+
   const links = (
     <>
       <li>
-        <Link
-          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
-          to="/"
-        >
+        <NavLink className={navlinkStyle} to="/">
           Home
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link
-          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
-          to="/rooms"
-        >
+        <NavLink className={navlinkStyle} to="/rooms">
           Rooms
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link
-          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
-          to="/my-bookings"
-        >
+        <NavLink className={navlinkStyle} to="/my-bookings">
           My Bookings
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link
-          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
-          to="/about"
-        >
+        <NavLink className={navlinkStyle} to="/about">
           About
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link
-          className="hover:text-amber-500 hover:underline underline-offset-4 transition-all"
-          to="/contact"
-        >
+        <NavLink className={navlinkStyle} to="/contact">
           Contact
-        </Link>
+        </NavLink>
       </li>
     </>
   );
