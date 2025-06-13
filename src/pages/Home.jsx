@@ -1,10 +1,12 @@
 import Banner from "../components/home/Banner";
 import CallToAction from "../components/home/CallToAction";
 import Contact from "../components/home/Contact";
+import FaqSection from "../components/home/FaqSection";
 import Feature from "../components/home/Feature";
 import FeaturedRooms from "../components/home/FeaturedRooms";
 import PromoModal from "../components/home/PromoModal";
 import Testimonial from "../components/home/Testimonial";
+
 
 export default function Home() {
   return (
@@ -13,6 +15,7 @@ export default function Home() {
       <Feature />
       <FeaturedRooms />
       <Testimonial />
+      <FaqSection />
       <Contact />
       <CallToAction />
       <PromoModal />

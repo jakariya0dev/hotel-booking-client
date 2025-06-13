@@ -51,7 +51,7 @@ export default function Navbar() {
         </NavLink>
       </li>
       <li>
-        <NavLink className={navlinkStyle} to="/contact-us">
+        <NavLink className={navlinkStyle} to="/contact">
           Contact
         </NavLink>
       </li>

@@ -28,6 +28,11 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             <li>
+              <Link to="/home" className="hover:underline">
+                Home
+              </Link>
+            </li>
+            <li>
               <Link to="/rooms" className="hover:underline">
                 Rooms
               </Link>
@@ -42,11 +47,6 @@ const Footer = () => {
                 Contact
               </Link>
             </li>
-            <li>
-              <Link to="/faq" className="hover:underline">
-                FAQs
-              </Link>
-            </li>
           </ul>
         </div>
 
@@ -55,13 +55,13 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
           <ul className="space-y-3 text-sm">
             <li className="flex items-center gap-2">
-              <FaMapMarkerAlt /> Labony Point, Cox's Bazar, Bangladesh
+              <FaMapMarkerAlt /> 123 Beachside Road, Cox’s Bazar, Bangladesh
             </li>
             <li className="flex items-center gap-2">
-              <FaPhoneAlt /> +88 (017) 123-4567
+              <FaPhoneAlt /> +880 1234 567 890
             </li>
             <li className="flex items-center gap-2">
-              <FaEnvelope /> info@sunsetbay.com
+              <FaEnvelope /> info@sunsetbayhotel.com
             </li>
           </ul>
         </div>
