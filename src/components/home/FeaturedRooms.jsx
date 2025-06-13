@@ -8,14 +8,14 @@ const FeaturedRooms = () => {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_BASE_URL}/rooms`)
+    fetch(`${import.meta.env.VITE_BASE_URL}/rooms/top-rated`)
       .then((res) => res.json())
       .then((data) => setRooms(data));
   }, []);
 
   const featuredRooms = rooms.slice(0, 6);
 
-  // console.log(featuredRooms);
+  console.log(featuredRooms);
 
   return (
     <section className="py-16 px-4 bg-white">

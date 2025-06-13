@@ -2,7 +2,7 @@ import axios from "axios";
 import { format } from "date-fns";
 import { use, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../providers/AuthProvider";
 import { RenderStars } from "../utils/RatingHelper";
@@ -11,13 +11,24 @@ import Modal from "./../components/common/Modal";
 const RoomDetails = () => {
   const roomDetails = useLoaderData();
   const { user } = use(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  console.log(roomDetails);
+  // console.log(roomDetails);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
 
-  const handleBookNow = () => {
+  const handleOpenBookingModal = () => {
+    if (!user) {
+      toast.error("Please login to book a room.");
+      navigate("/login", { state: location.pathname });
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleBookingConfirm = () => {
     if (!selectedDate) {
       toast.error("Please select a date");
       return;
@@ -29,14 +40,9 @@ const RoomDetails = () => {
       )
     ) {
       toast.error("This room is not available at the selected date.");
-      setIsModalOpen(false);
       return;
     }
 
-    setIsModalOpen(true);
-  };
-
-  const handleBookingConfirm = () => {
     axios
       .post(`${import.meta.env.VITE_BASE_URL}/book-room`, {
         userEmail: user.email,
@@ -53,10 +59,12 @@ const RoomDetails = () => {
       .catch((error) => {
         console.log(error);
         console.log(error.response.data);
-
         toast.error("Something went wrong!");
+      })
+      .finally(() => {
+        setIsModalOpen(false);
+        setSelectedDate("");
       });
-    setIsModalOpen(false);
   };
 
   if (!roomDetails) {
@@ -95,37 +103,31 @@ const RoomDetails = () => {
               <span className="text-sm text-gray-500">/night</span>
             </p>
 
-            <label className="block mb-4">
-              <span className="text-sm text-gray-400">Select Date:</span>
-              <input
-                type="date"
-                className="border border-gray-400 px-3 py-2 rounded mt-1 w-full bg-gray-200"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-              />
-            </label>
+            {roomDetails.bookings.length > 0 && (
+              <div className="my-4">
+                <div className="text-gray-500 mb-2 font-semibold">
+                  This Room Unavailable on:
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {roomDetails.bookings.map((booking, index) => (
+                    <span
+                      key={index}
+                      className="text-blue-500 font-semibold border border-gray-200 px-4 py-1 rounded-md"
+                    >
+                      {format(new Date(booking.bookingDate), "dd MMM, yyyy")}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
             <button
-              onClick={handleBookNow}
+              onClick={handleOpenBookingModal}
               className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition"
             >
               Book Now
             </button>
           </div>
         </div>
-
-        {roomDetails.bookings.length > 0 && (
-          <div className="mt-4 flex items-center gap-2">
-            <span className="text-gray-500">This Room Already Booked for:</span>
-            {roomDetails.bookings.map((booking, index) => (
-              <span
-                key={index}
-                className="text-blue-500 font-semibold border px-4 py-1 rounded-full"
-              >
-                {format(new Date(booking.bookingDate), "dd MMM, yyyy")}
-              </span>
-            ))}
-          </div>
-        )}
 
         {/* Reviews Section */}
         <div className="mt-10 ">
@@ -151,7 +153,7 @@ const RoomDetails = () => {
                     <div className="text-yellow-400 flex">
                       {RenderStars(review.rating)}
                       <span className="ml-2 text-gray-400">
-                        {roomDetails.rating}/5
+                        {review.rating}/5
                       </span>
                     </div>
                   </div>
@@ -166,20 +168,29 @@ const RoomDetails = () => {
         {isModalOpen && (
           <Modal onClose={() => setIsModalOpen(false)}>
             <div className="p-4">
-              <h2 className="text-xl font-bold mb-2">Booking Summary</h2>
-              <p>
+              <h2 className="text-2xl font-bold mb-2 text-center">
+                Booking Summary
+              </h2>
+              <hr className="mb-4 border-gray-200" />
+              <p className="mb-1 text-gray-500">
                 <strong>Room:</strong> {roomDetails.name}
               </p>
-              <p>
+              <p className="mb-1 text-gray-500">
                 <strong>Price:</strong> ${roomDetails.price}/night
               </p>
-              <p>
+              <p className="mb-1 text-gray-500">
                 <strong>Date:</strong> {selectedDate || "Not selected"}
               </p>
-              <p className="text-sm text-gray-500 mt-2">
-                {roomDetails.description}
-              </p>
 
+              <label className="block my-4">
+                <span className="text-sm text-gray-500">Select Date:</span>
+                <input
+                  type="date"
+                  className="border border-gray-400 px-3 py-2 rounded mt-1 w-full bg-gray-300"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                />
+              </label>
               <button
                 className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
                 onClick={handleBookingConfirm}

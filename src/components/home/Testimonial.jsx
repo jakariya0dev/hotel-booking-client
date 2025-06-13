@@ -14,7 +14,7 @@ const Testimonial = () => {
     ).values(),
   ];
 
-  console.log(uniqueReviews);
+  // console.log(uniqueReviews);
 
   useEffect(() => {
     axios

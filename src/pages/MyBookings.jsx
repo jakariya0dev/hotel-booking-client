@@ -252,7 +252,7 @@ export default function MyBookings() {
                       onClick={() => handleUpdateBooking(booking._id)}
                       className="btn btn-sm border-0 bg-green-600 text-white"
                     >
-                      Update Booking
+                      Update Date
                     </button>
                     <button
                       onClick={() => handleCancelBooking(booking._id)}
@@ -276,24 +276,32 @@ export default function MyBookings() {
             >
               <h2 className="text-xl font-semibold">Leave a Review</h2>
 
+              {/* User Name Field */}
+              <div>
+                <label className="block mb-1">User Name</label>
+                <input
+                  type="text"
+                  value={review.userName}
+                  disabled
+                  required
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                />
+              </div>
+
               {/* Rating Field */}
               <div>
                 <label className="block mb-1">Rating</label>
-                <select
-                  value={review.rating || 0}
+                <input
+                  type="number"
+                  min="1"
+                  max="5"
                   required
+                  value={review.rating}
                   onChange={(e) =>
                     setReview({ ...review, rating: parseInt(e.target.value) })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value={0}>Select a rating</option>
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <option key={star} value={star}>
-                      {star} Star{star > 1 ? "s" : ""}
-                    </option>
-                  ))}
-                </select>
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                />
               </div>
 
               {/* Comment Field */}
