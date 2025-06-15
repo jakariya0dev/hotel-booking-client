@@ -42,23 +42,27 @@ const RoomDetails = () => {
       toast.error("This room is not available at the selected date.");
       return;
     }
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user?.accessToken}`,
+    };
+    const bookingData = {
+      userEmail: user.email,
+      roomId: roomDetails._id,
+      bookingDate: selectedDate,
+      reviewed: false,
+    };
 
     axios
-      .post(`${import.meta.env.VITE_BASE_URL}/book-room`, {
-        userEmail: user.email,
-        roomId: roomDetails._id,
-        bookingDate: selectedDate,
-        reviewed: false,
+      .post(`${import.meta.env.VITE_BASE_URL}/book-room`, bookingData, {
+        headers: headers,
       })
       .then((res) => {
         console.log(res);
-        if (res.data.success) {
-          toast.success(res.data.message);
-        }
+        toast.success(res.data.message);
       })
       .catch((error) => {
         console.log(error);
-        console.log(error.response.data);
         toast.error("Something went wrong!");
       })
       .finally(() => {

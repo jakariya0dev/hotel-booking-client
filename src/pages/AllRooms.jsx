@@ -61,10 +61,10 @@ export default function AllRooms() {
               onChange={(e) => setSortType(e.target.value)}
             >
               <option value="default">Default</option>
-              <option value="price-asc">Price Low to High</option>
-              <option value="price-desc">Price High to Low</option>
-              <option value="rating-asc">Rating High to Low</option>
-              <option value="rating-desc">Rating Low to High</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating-asc">Rating: High to Low</option>
+              <option value="rating-desc">Rating: Low to High</option>
             </select>
           </div>
 
@@ -106,7 +106,7 @@ export default function AllRooms() {
           </div>
         </div>
         <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
-          Rooms in Our Hotel
+          All Rooms in Our Hotel
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

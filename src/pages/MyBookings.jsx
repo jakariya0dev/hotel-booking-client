@@ -20,7 +20,11 @@ export default function MyBookings() {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`${import.meta.env.VITE_BASE_URL}/bookings/${user.email}`)
+        .get(`${import.meta.env.VITE_BASE_URL}/bookings/${user.email}`, {
+          headers: {
+            Authorization: `Bearer ${user?.accessToken}`,
+          },
+        })
         .then((res) => {
           setbookingsData(res.data);
           // console.log(res.data);
@@ -29,15 +33,12 @@ export default function MyBookings() {
           console.error("Error fetching bookings:", error);
         });
     }
-  }, [user?.email]);
+  }, [user?.email, user?.accessToken]);
 
   const handleUpdateBooking = (id) => {
     const booking = bookingsData.find((booking) => booking._id === id);
     if (booking) {
-      setSelectedBookingData({
-        bookingDate: booking.bookingDate,
-        _id: booking._id,
-      });
+      setSelectedBookingData(booking);
       setIsUpdateBookingModalOpen(true);
     }
   };
@@ -48,16 +49,21 @@ export default function MyBookings() {
 
     // Update booking date
     axios
-      .patch(
+      .put(
         `${import.meta.env.VITE_BASE_URL}/bookings/${selectedBookingData._id}`,
-        selectedBookingData._id
+        selectedBookingData,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.accessToken}`,
+          },
+        }
       )
       .then((res) => {
         if (res.data.success) {
-          toast.success("Booking date updated successfully!");
+          toast.success(res.data.message);
+          // console.log(res.data);
 
-          console.log(res.data);
-
+          // Update the bookingsData state with the new booking date
           const updatedBookings = bookingsData.map((booking) => {
             if (booking._id === selectedBookingData._id) {
               return {
@@ -67,9 +73,11 @@ export default function MyBookings() {
             }
             return booking;
           });
+
           setbookingsData(updatedBookings);
+          setSelectedBookingData(null);
         } else {
-          toast.error("Failed to update booking date.");
+          toast.error(res.data.message);
         }
       })
       .catch((error) => {
@@ -84,6 +92,7 @@ export default function MyBookings() {
     const bookingDate = new Date(booking.bookingDate);
     const today = new Date();
     const oneDayBefore = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+
     if (bookingDate < oneDayBefore) {
       toast.error(
         "You can cancel booking only one day before the booking date."
@@ -105,9 +114,11 @@ export default function MyBookings() {
         // user select yes to cancel booking
         axios
           .delete(`${import.meta.env.VITE_BASE_URL}/bookings/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user?.accessToken}`,
+            },
             data: { userEmail: user.email },
           })
-          .then((res) => res.json())
           .then((data) => {
             const updatedBookings = bookingsData.filter(
               (group) => group._id !== id
@@ -147,7 +158,11 @@ export default function MyBookings() {
       return;
     }
     axios
-      .post(`${import.meta.env.VITE_BASE_URL}/review`, review)
+      .post(`${import.meta.env.VITE_BASE_URL}/review`, review, {
+        headers: {
+          Authorization: `Bearer ${user?.accessToken}`,
+        },
+      })
       .then((res) => {
         if (res.data.success) {
           toast.success("Review submitted successfully!");
