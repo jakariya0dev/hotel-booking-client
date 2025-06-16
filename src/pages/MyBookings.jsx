@@ -204,7 +204,7 @@ export default function MyBookings() {
   return (
     <>
       <Helmet>
-        <title>HobbyHub | Groups Dashboard</title>
+        <title>Booking Dashboard - SunsetBay</title>
         <meta name="description" content="Group Dashboard" />
       </Helmet>
       <section className="max-w-7xl mx-auto pt-10 min-h-screen p-4">
@@ -358,6 +358,7 @@ export default function MyBookings() {
                 <label className="block mb-1">Date</label>
                 <input
                   type="date"
+                  min={new Date().toISOString().split("T")[0]}
                   value={selectedBookingData?.bookingDate || ""}
                   onChange={(e) =>
                     setSelectedBookingData({

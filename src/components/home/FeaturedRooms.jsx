@@ -21,7 +21,11 @@ const FeaturedRooms = () => {
     <section className="px-4 bg-white mb-32">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-gray-800 text-3xl font-bold text-center mb-10">
-          Explore Our Premium Suites
+          Explore Our{" "}
+          <span className="underline underline-offset-8 decoration-amber-400 decoration-4">
+            Premium
+          </span>{" "}
+          Suites
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -61,7 +61,7 @@ const Feature = () => {
     <section className="bg-white">
       <div className="max-w-7xl mx-auto py-16">
         <h2 className=" text-gray-800 text-3xl font-bold text-center mb-5">
-          What We Offer
+          What We <span className="underline underline-offset-8 decoration-amber-400 decoration-4">Offer</span>
         </h2>
         <Slider {...settings}>
           {features.map((feature) => (

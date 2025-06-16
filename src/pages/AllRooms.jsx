@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useLoaderData } from "react-router";
 import RoomItemCard from "../components/common/RoomItemCard";
 
@@ -49,76 +50,91 @@ export default function AllRooms() {
   };
 
   return (
-    <section className="py-16 px-4 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          {/* Sorting Options */}
-          <div>
-            <label htmlFor="rooms">Sort By:</label>
-            <select
-              className="ml-2 p-1 border rounded"
-              id="rooms"
-              onChange={(e) => setSortType(e.target.value)}
-            >
-              <option value="default">Default</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="rating-asc">Rating: High to Low</option>
-              <option value="rating-desc">Rating: Low to High</option>
-            </select>
-          </div>
+    <>
+      <Helmet>
+        <title>All Rooms - SunsetBay Hotel</title>
+        <meta
+          name="description"
+          content="Explore all available rooms at SunsetBay Hotel"
+        />
+      </Helmet>
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between gap-2 mb-10 md:mb-16">
+            {/* Sorting Options */}
+            <div>
+              <label htmlFor="rooms">Sort By:</label>
+              <select
+                className="ml-2 p-1 border rounded"
+                id="rooms"
+                onChange={(e) => setSortType(e.target.value)}
+              >
+                <option value="default">Default</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating-asc">Rating: High to Low</option>
+                <option value="rating-desc">Rating: Low to High</option>
+              </select>
+            </div>
 
-          <div className="w-full max-w-sm bg-white p-4 rounded-lg shadow-md">
-            <label className="block text-lg font-semibold text-gray-800 mb-2">
-              Filter by Price Range
-            </label>
+            {/* Price Range Filter */}
+            <div className="w-full max-w-sm bg-white p-4 rounded-lg shadow-md">
+              <label className="block text-lg font-semibold text-gray-800 mb-2">
+                Filter Room by Price Range
+              </label>
 
-            <div className="flex justify-between text-sm text-gray-600 mb-1"></div>
+              <div className="flex justify-between text-sm text-gray-600 mb-1"></div>
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <div className="w-full">
-                <label className="text-sm font-medium text-gray-700">
-                  Min Price: <span>${minPrice}</span>
-                </label>
-                <input
-                  type="range"
-                  min="10"
-                  max="1000"
-                  step="10"
-                  value={minPrice}
-                  onChange={handleMinChange}
-                  className="w-full accent-green-600"
-                />
-                <label className="text-sm font-medium text-gray-700">
-                  Max Price: <span>${maxPrice}</span>
-                </label>
-                <input
-                  type="range"
-                  min="10"
-                  max="1000"
-                  step="10"
-                  value={maxPrice}
-                  onChange={handleMaxChange}
-                  className="w-full accent-blue-600"
-                />
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Min Price: <span>${minPrice}</span>
+                  </label>
+                  <input
+                    type="range"
+                    min="10"
+                    max="1000"
+                    step="10"
+                    value={minPrice}
+                    onChange={handleMinChange}
+                    className="w-full accent-green-600"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Max Price: <span>${maxPrice}</span>
+                  </label>
+                  <input
+                    type="range"
+                    min="10"
+                    max="1000"
+                    step="10"
+                    value={maxPrice}
+                    onChange={handleMaxChange}
+                    className="w-full accent-blue-600"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
-          All Rooms in Our Hotel
-        </h2>
+          <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
+            Rooms in Our{" "}
+            <span className="underline underline-offset-8 decoration-amber-400 decoration-4">
+              Hotel
+            </span>
+          </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sortedRooms.length > 0 ? (
-            sortedRooms.map((room) => (
-              <RoomItemCard key={room._id} room={room} />
-            ))
-          ) : (
-            <div> No rooms found </div>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sortedRooms.length > 0 ? (
+              sortedRooms.map((room) => (
+                <RoomItemCard key={room._id} room={room} />
+              ))
+            ) : (
+              <div> No rooms found </div>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

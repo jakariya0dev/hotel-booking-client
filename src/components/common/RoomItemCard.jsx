@@ -22,9 +22,9 @@ export default function RoomItemCard({ room }) {
           <p className="text-gray-600 mb-3">{room.description}</p>
           {/* Ratings */}
           <div className="flex items-center mb-4">
-            {RenderStars(room.averageRating)}
+            {RenderStars(room.averageRating?.toFixed(1))}
             <span className="ml-2 text-sm text-gray-500">
-              ({room.averageRating}/5)
+              ({room.averageRating?.toFixed(1) ?? 0}/5)
             </span>
           </div>
 

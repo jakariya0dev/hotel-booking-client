@@ -1,6 +1,6 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 const faqs = [
   {
@@ -41,7 +41,11 @@ export default function FaqSection() {
     <section className="bg-gray-100 py-16 px-4">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-10 text-gray-800">
-          Frequently Asked Questions
+          Frequently{" "}
+          <span className="underline underline-offset-8 decoration-amber-400 decoration-4">
+            Asked
+          </span>{" "}
+          Questions
         </h2>
         <div className="space-y-4">
           {faqs.map((faq, index) => (

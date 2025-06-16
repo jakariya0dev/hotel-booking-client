@@ -1,6 +1,6 @@
-import "leaflet/dist/leaflet.css";
+import { Map, Marker } from "pigeon-maps";
 import { useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import Swal from "sweetalert2";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,25 +18,22 @@ const Contact = () => {
     console.log("Form submitted:", formData);
     // Reset
     setFormData({ name: "", email: "", message: "" });
+    Swal.fire({
+      title: "Thank You!",
+      text: "Your message has been sent successfully.",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
   };
 
   return (
     <div className="w-full px-4 py-10 lg:py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Map Section */}
-        <div className="h-full w-full">
-          <MapContainer
-            center={[23.8103, 90.4125]} // Dhaka example
-            zoom={13}
-            scrollWheelZoom={false}
-            className="h-full w-full rounded-lg shadow-lg"
-          >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
-            <Marker position={[23.8103, 90.4125]}>
-              <Popup>SunsetBay</Popup>
-            </Marker>
-          </MapContainer>
+        <div className="h-full w-full min-h-[300px]">
+          <Map defaultCenter={[21.4213915, 91.9809844]} defaultZoom={15}>
+            <Marker width={50} anchor={[21.4213915, 91.9809844]} />
+          </Map>
         </div>
 
         {/* Contact Form Section */}
