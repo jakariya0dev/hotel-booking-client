@@ -1,17 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useLoaderData } from "react-router";
+import LoaderBar from "../components/common/LoaderBar";
 import RoomItemCard from "../components/common/RoomItemCard";
 
 export default function AllRooms() {
-  const allRooms = useLoaderData();
+  const [loading, setLoading] = useState(false);
+  const [sortedRooms, setSortedRooms] = useState([]);
   const [sortType, setSortType] = useState("default");
-  const [sortedRooms, setSortedRooms] = useState(allRooms);
-  const [minPrice, setMinPrice] = useState(10);
+  const [minPrice, setMinPrice] = useState(5);
   const [maxPrice, setMaxPrice] = useState(1000);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         `${
@@ -20,7 +21,6 @@ export default function AllRooms() {
       )
       .then((res) => {
         let data = res.data.rooms;
-        console.log(data);
 
         if (sortType === "price-asc") {
           data.sort((a, b) => a.price - b.price);
@@ -34,9 +34,8 @@ export default function AllRooms() {
 
         setSortedRooms(data);
       })
-      .catch((error) =>
-        console.error("Error fetching rooms by price range:", error)
-      );
+      .catch((error) => console.error("Error fetching rooms:", error))
+      .finally(() => setLoading(false));
   }, [minPrice, maxPrice, sortType]);
 
   const handleMinChange = (e) => {
@@ -49,6 +48,10 @@ export default function AllRooms() {
     if (value > minPrice) setMaxPrice(value);
   };
 
+  console.log(sortedRooms);
+
+  if (loading) return <LoaderBar />;
+
   return (
     <>
       <Helmet>
@@ -60,7 +63,7 @@ export default function AllRooms() {
       </Helmet>
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between gap-2 mb-10 md:mb-16">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-2 mb-10 md:mb-16">
             {/* Sorting Options */}
             <div>
               <label htmlFor="rooms">Sort By:</label>
@@ -124,15 +127,19 @@ export default function AllRooms() {
             </span>
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sortedRooms.length > 0 ? (
-              sortedRooms.map((room) => (
-                <RoomItemCard key={room._id} room={room} />
-              ))
-            ) : (
-              <div> No rooms found </div>
-            )}
-          </div>
+          {loading ? (
+            <LoaderBar />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {sortedRooms.length > 0 ? (
+                sortedRooms.map((room) => (
+                  <RoomItemCard key={room._id} room={room} />
+                ))
+              ) : (
+                <div> No rooms found </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
     </>

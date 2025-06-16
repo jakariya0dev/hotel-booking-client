@@ -20,6 +20,7 @@ export default function RoomItemCard({ room }) {
           </div>
 
           <p className="text-gray-600 mb-3">{room.description}</p>
+
           {/* Ratings */}
           <div className="flex items-center mb-4">
             {RenderStars(room.averageRating?.toFixed(1))}

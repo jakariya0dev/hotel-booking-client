@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { use, useEffect, useState } from "react";
+import { use, useState } from "react";
 import { Helmet } from "react-helmet";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router";
@@ -19,12 +19,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    if (user && location.pathname === "/login") {
-      navigate(location.state ? location.state : "/");
-    }
-  }, [user, navigate, location.pathname, location.state]);
 
   const handleLogin = (e) => {
     setIsLoading(true);
@@ -68,6 +62,10 @@ const Login = () => {
 
   if (isLoading) {
     return <LoaderBar />;
+  }
+
+  if (user && location.pathname === "/login") {
+    navigate(location.state ? location.state : "/");
   }
 
   return (
@@ -128,7 +126,11 @@ const Login = () => {
 
           <p className="text-sm text-center mt-4">
             Don’t have an account?{" "}
-            <Link to="/signup" className="text-blue-600 hover:underline">
+            <Link
+              to="/signup"
+              state={location.state ? location.state : "/"}
+              className="text-blue-600 hover:underline"
+            >
               Sign up
             </Link>
           </p>

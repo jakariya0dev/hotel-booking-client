@@ -3,9 +3,9 @@ import {
   getAuth,
   updateProfile,
 } from "firebase/auth";
-import { use, useEffect, useState } from "react";
+import { use, useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { app } from "../../firebase.config.js";
 import LoaderBar from "../components/common/LoaderBar";
@@ -16,18 +16,14 @@ const auth = getAuth(app);
 const Signup = () => {
   const { user, setUser, isLoading, setIsLoading } = use(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     photoURL: "",
     password: "",
   });
-
-  useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
-  }, [navigate, user]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -64,11 +60,19 @@ const Signup = () => {
         displayName: name,
         photoURL: photoURL,
       });
+      setUser(userCredential.user);
       toast.success("Registration successful!");
       setFormData({ name: "", email: "", photoURL: "", password: "" });
-      setUser(userCredential.user);
     } catch (error) {
-      toast.error(error.message);
+      let message = "Registration failed.";
+      if (error.code === "auth/email-already-in-use") {
+        message = "Email is already in use.";
+      } else if (error.code === "auth/invalid-email") {
+        message = "Invalid email format.";
+      } else if (error.code === "auth/weak-password") {
+        message = "Password is too weak.";
+      }
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -76,6 +80,10 @@ const Signup = () => {
 
   if (isLoading) {
     return <LoaderBar />;
+  }
+
+  if (user && location.pathname === "/signup") {
+    navigate(location.state ? location.state : "/");
   }
 
   return (
