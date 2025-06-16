@@ -73,13 +73,13 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>HorizonHotel | Login</title>
-        <meta name="description" content="Login to HobbyHub" />
+        <title>Login - SunsetBay</title>
+        <meta name="description" content="Login to SunsetBay" />
       </Helmet>
-      <section className="min-h-screen flex items-center justify-center bg-white text-gray-800 px-4">
-        <div className="w-full max-w-md shadow-2xl rounded-xl p-8">
+      <section className="min-h-screen flex items-center justify-center text-gray-800 px-4">
+        <div className="w-full max-w-md shadow-2xl rounded-xl p-8 border border-gray-200 bg-white">
           <h2 className="text-2xl font-bold text-center mb-6">
-            Login to SunsetBay
+            Login to <span className="text-amber-400">SunsetBay</span>
           </h2>
 
           <form onSubmit={handleLogin} className="space-y-4">

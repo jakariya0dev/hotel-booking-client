@@ -81,11 +81,11 @@ const Signup = () => {
   return (
     <>
       <Helmet>
-        <title>HobbyHub | Signup</title>
-        <meta name="description" content="Sign up to HobbyHub" />
+        <title>Signup - SunsetBay</title>
+        <meta name="description" content="Sign up to SunsetBay" />
       </Helmet>
-      <section className="w-full min-h-screen p-4 bg-white text-gray-800">
-        <div className="max-w-md mx-auto p-6 mt-12 shadow-2xl rounded-xl">
+      <section className="w-full min-h-screen p-4 text-gray-800">
+        <div className="max-w-md mx-auto p-6 mt-12 shadow-2xl rounded-xl border border-gray-200 bg-white">
           <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
