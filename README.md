@@ -1,12 +1,69 @@
-# React + Vite
+# SunsetBay Hotel Booking
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **SunsetBay Hotel Booking**, a full-stack hotel reservation web application built with the MERN stack (MongoDB, Express.js, React.js, and Node.js) and deployed on **Netlify** and **Vercel**.
 
-Currently, two official plugins are available:
+🔗 **Live Website**: [https://ph-b11-a11-hotel-boking.netlify.app/](https://ph-b11-a11-hotel-boking.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔐 **User Authentication** (with Firebase Auth)
+- 📦 **Room Management**
+- 📅 **Booking System**
+- 💸 **Filter Rooms by Price**
+- ⭐ **Average Ratings from Reviews**
+- 🔍 **Search & Sort by Price or Rating**
+- 📍 **Interactive Map** using React Leaflet
+- 📱 **Fully Responsive UI**
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend:
+- React.js
+- React Router DOM
+- Axios
+- Firebase Auth
+- Tailwind CSS
+- DaisyUI
+- React Leaflet
+- React Helmet
+
+### Backend:
+- Node.js
+- Express.js
+- MongoDB
+- Firebase Admin SDK (Token Verification)
+- CORS, Dotenv
+
+---
+
+## 📦 Used Packages
+
+| Package Name         | Description                                        |
+|----------------------|----------------------------------------------------|
+| `date-fns`           | Modern JavaScript date utility library             |
+| `framer-motion`      | Animation library for React                        |
+| `leaflet`            | Open-source JavaScript library for interactive maps |
+| `lottie-react`       | Render Lottie animations in React                  |
+| `pigeon-maps`        | Lightweight alternative for rendering maps         |
+| `react-helmet`       | Manage document head in React                      |
+| `react-icons`        | Popular icons for React                            |
+| `react-router`       | Declarative routing for React                      |
+| `react-slick`        | Carousel component                                 |
+| `react-toastify`     | Toast notifications                                |
+| `react-tooltip`      | Tooltip component                                  |
+| `slick-carousel`     | Required CSS for react-slick                       |
+| `sweetalert2`        | Stylish popup alerts                               |
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone ...
+cd hotel-booking
