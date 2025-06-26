@@ -2,7 +2,7 @@
 
 Welcome to **SunsetBay Hotel Booking**, a full-stack hotel reservation web application built with the MERN stack (MongoDB, Express.js, React.js, and Node.js) and deployed on **Netlify** and **Vercel**.
 
-🔗 **Live Website**: [https://ph-b11-a11-hotel-boking.netlify.app/](https://ph-b11-a11-hotel-boking.netlify.app/)
+🔗 **Live Website**: [https://sunsetbay-hotel.netlify.app](https://sunsetbay-hotel.netlify.app)
 
 🔗 **Server Repo Link**: [https://github.com/jakariya0dev/hotel-booking-server](https://github.com/jakariya0dev/hotel-booking-server)
 
