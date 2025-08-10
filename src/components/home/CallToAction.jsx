@@ -3,19 +3,14 @@ import { Link } from "react-router";
 
 const CallToAction = () => {
   return (
-    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 px-6 shadow-lg text-center">
-      <motion.p
-        animate={{ scale: [1, 0.8, 1] }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="text-2xl font-semibold text-white mb-6"
+    <div className="bg-gradient-to-r from-indigo-900 to-purple-900 text-gray-200 py-16 px-6 shadow-lg text-center">
+      <p
+        
+        className="text-2xl text-white font-semibold mb-6"
       >
-        Book Early & Save 20%
-      </motion.p>
-      <h2 className="text-4xl md:text-4xl font-seminibold mb-4">
+        Book Early & Save <span className="bg-amber-400 px-2 rounded">20%</span>
+      </p>
+      <h2 className="text-4xl md:text-4xl text-gray-100 font-seminibold mb-4">
         Ready for a Relaxing Getaway?
       </h2>
 
