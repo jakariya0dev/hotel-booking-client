@@ -70,5 +70,5 @@ Welcome to **SunsetBay Hotel Booking**, a full-stack hotel reservation web appli
 git clone https://github.com/jakariya0dev/hotel-booking-client.git
 cd hotel-booking
 npm init
-npm instal
+npm install
 npm run dev
