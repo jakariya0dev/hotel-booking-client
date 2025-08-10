@@ -30,16 +30,24 @@ export default function RoomItemCard({ room }) {
           </div>
 
           {/* Features */}
-          <ul className="text-sm text-gray-500 mb-4 list-disc list-inside">
+          <div className="flex flex-wrap mb-5">
             {room.features.map((feature, i) => (
-              <li key={i}>{feature}</li>
+              // <li key={i}>{feature}</li>
+              <span
+                key={i}
+                className="mr-2 mb-2 text-sm border border-amber-200 px-2 p-1 rounded-full"
+              >
+                {feature}
+              </span>
             ))}
-          </ul>
+          </div>
 
           {/* Book Now Button */}
-          <button className="cursor-pointer inline-block bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
-            Book Now
-          </button>
+          <div className="flex justify-end">
+            <button className="cursor-pointer inline-block bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700 transition">
+              Book Now
+            </button>
+          </div>
         </div>
       </div>
     </Link>
