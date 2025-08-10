@@ -40,11 +40,13 @@ export default function Navbar() {
           Rooms
         </NavLink>
       </li>
-      <li>
-        <NavLink className={navlinkStyle} to="/my-bookings">
-          My Bookings
-        </NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink className={navlinkStyle} to="/my-bookings">
+            My Bookings
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink className={navlinkStyle} to="/about">
           About
@@ -59,7 +61,7 @@ export default function Navbar() {
   );
 
   return (
-    <div className="navbar bg-white text-gray-600 shadow-lg px-4">
+    <div className="navbar bg-white text-gray-600 shadow-lg px-4 sticky top-0 z-10">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

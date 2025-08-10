@@ -43,7 +43,7 @@ const Banner = () => {
   ];
 
   return (
-    <div className="bg-white w-full h-[400px] overflow-hidden shadow-lg">
+    <div className="bg-white w-full overflow-hidden shadow-lg">
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index}>
@@ -51,7 +51,7 @@ const Banner = () => {
               style={{ backgroundImage: `url(${slide.image})` }}
               className="bg-cover bg-center"
             >
-              <div className="bg-[#00000095] text-white h-[400px] flex flex-col justify-center items-center px-10">
+              <div className="bg-[#00000095] text-white h-[520px] flex flex-col justify-center items-center px-10">
                 <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
                 <p className="text-lg mb-6 max-w-2xl text-center">
                   {slide.description}
