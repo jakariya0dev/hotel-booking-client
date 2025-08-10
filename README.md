@@ -24,6 +24,7 @@ Welcome to **SunsetBay Hotel Booking**, a full-stack hotel reservation web appli
 ## 🛠️ Tech Stack
 
 ### Frontend:
+
 - React.js
 - React Router DOM
 - Axios
@@ -34,6 +35,7 @@ Welcome to **SunsetBay Hotel Booking**, a full-stack hotel reservation web appli
 - React Helmet
 
 ### Backend:
+
 - Node.js
 - Express.js
 - MongoDB
@@ -44,21 +46,21 @@ Welcome to **SunsetBay Hotel Booking**, a full-stack hotel reservation web appli
 
 ## 📦 Used Packages
 
-| Package Name         | Description                                        |
-|----------------------|----------------------------------------------------|
-| `date-fns`           | Modern JavaScript date utility library             |
-| `framer-motion`      | Animation library for React                        |
-| `leaflet`            | Open-source JavaScript library for interactive maps |
-| `lottie-react`       | Render Lottie animations in React                  |
-| `pigeon-maps`        | Lightweight alternative for rendering maps         |
-| `react-helmet`       | Manage document head in React                      |
-| `react-icons`        | Popular icons for React                            |
-| `react-router`       | Declarative routing for React                      |
-| `react-slick`        | Carousel component                                 |
-| `react-toastify`     | Toast notifications                                |
-| `react-tooltip`      | Tooltip component                                  |
-| `slick-carousel`     | Required CSS for react-slick                       |
-| `sweetalert2`        | Stylish popup alerts                               |
+| Package Name     | Description                                         |
+| ---------------- | --------------------------------------------------- |
+| `date-fns`       | Modern JavaScript date utility library              |
+| `framer-motion`  | Animation library for React                         |
+| `leaflet`        | Open-source JavaScript library for interactive maps |
+| `lottie-react`   | Render Lottie animations in React                   |
+| `pigeon-maps`    | Lightweight alternative for rendering maps          |
+| `react-helmet`   | Manage document head in React                       |
+| `react-icons`    | Popular icons for React                             |
+| `react-router`   | Declarative routing for React                       |
+| `react-slick`    | Carousel component                                  |
+| `react-toastify` | Toast notifications                                 |
+| `react-tooltip`  | Tooltip component                                   |
+| `slick-carousel` | Required CSS for react-slick                        |
+| `sweetalert2`    | Stylish popup alerts                                |
 
 ---
 
@@ -68,7 +70,12 @@ Welcome to **SunsetBay Hotel Booking**, a full-stack hotel reservation web appli
 
 ```bash
 git clone https://github.com/jakariya0dev/hotel-booking-client.git
-cd hotel-booking
-npm init
+cd hotel-booking-client
+```
+
+### 2. Install Dependencies
+
+```bash
 npm install
 npm run dev
+```
