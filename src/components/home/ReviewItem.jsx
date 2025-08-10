@@ -3,8 +3,8 @@ import { FaStar } from "react-icons/fa";
 
 export default function ReviewItem({ review }) {
   return (
-    <div className="px-3 my-4 min-h-80">
-      <div className="p-6 rounded-xl shadow-xl h-full flex flex-col items-center justify-center text-center">
+    <div className="px-3 my-4">
+      <div className="min-h-[380px] p-6 rounded-xl shadow-xl h-full flex flex-col items-center justify-center text-center">
         <img
           src={review.photoUrl}
           alt={review.name}
