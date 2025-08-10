@@ -39,7 +39,7 @@ export default function FaqSection() {
 
   return (
     <section className="bg-gray-100 py-16 px-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-10 text-gray-800">
           Frequently{" "}
           <span className="underline underline-offset-8 decoration-amber-400 decoration-4">
@@ -51,7 +51,7 @@ export default function FaqSection() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white border border-gray-200 rounded-lg shadow-sm"
+              className="bg-white rounded-lg border border-gray-100"
             >
               <button
                 onClick={() => toggleAnswer(index)}
