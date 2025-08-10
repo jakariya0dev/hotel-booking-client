@@ -1,21 +1,38 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import LoadingBar from "../common/LoaderBar";
 import RoomItemCard from "../common/RoomItemCard";
 
-// Dummy data
-
 const FeaturedRooms = () => {
+  const [loading, setLoading] = useState(true);
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BASE_URL}/rooms/top-rated`)
       .then((res) => res.json())
-      .then((data) => setRooms(data));
+      .then((data) => {
+        setRooms(data);
+        setLoading(false);
+      });
   }, []);
 
   const featuredRooms = rooms.slice(0, 6);
 
-  console.log(featuredRooms);
+  // console.log(featuredRooms);
+
+  if (loading) return <LoadingBar />;
+
+  if (featuredRooms.length === 0) {
+    return (
+      <section className="px-4 bg-white mb-32">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-gray-800 text-3xl font-bold text-center mb-10">
+            No Featured Rooms Available
+          </h2>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="px-4 bg-white mb-32">

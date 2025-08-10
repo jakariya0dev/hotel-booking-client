@@ -121,9 +121,9 @@ export default function AllRooms() {
             </div>
           </div>
           <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
-            Rooms in Our{" "}
+            Rooms in{" "}
             <span className="underline underline-offset-8 decoration-amber-400 decoration-4">
-              Hotel
+              Our Hotel
             </span>
           </h2>
 
